@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "nuxt-csurf-playground",
+  "dependencies": {
+    "nuxt-csurf": "workspace:*"
+  }
+}
