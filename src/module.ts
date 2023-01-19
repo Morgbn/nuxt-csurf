@@ -2,17 +2,10 @@ import { randomBytes } from 'crypto'
 import { defu } from 'defu'
 import { defineNuxtModule, createResolver, addServerHandler, addImports } from '@nuxt/kit'
 import { RuntimeConfig } from '@nuxt/schema'
-import type { CookieSerializeOptions } from 'cookie-es'
 
-export interface ModuleOptions {
-  https?: boolean,
-  cookie?: CookieSerializeOptions,
-  cookieKey?: string,
-  methodsToProtect?: Array<string>, // the request methods we want CSRF protection for
-  excludedUrls?: Array<string|[string, string]>, // any URLs we want to exclude from CSRF protection
-  encryptSecret?: string,
-  encryptAlgorithm?: string
-}
+import type { ModuleOptions } from './types'
+
+export * from './types'
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
