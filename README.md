@@ -5,8 +5,8 @@ Create a middleware for CSRF token creation and validation.
 ## Setup
 
 ```sh
-yarn add nuxt-csrf # yarn
-npm i nuxt-csrf # npm
+yarn add nuxt-csurf # yarn
+npm i nuxt-csurf # npm
 ```
 
 ## Usage
