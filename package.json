@@ -1,6 +1,13 @@
 {
   "name": "nuxt-csurf",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
+  "description": "Nuxt Cross-Site Request Forgery (CSRF) Prevention",
+  "keywords": [
+    "nuxt",
+    "csrf",
+    "module"
+  ],
+  "author": "morgbn",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -15,10 +22,12 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "nuxt-module-build",
+    "build": "nuxt-module-build",
     "dev": "nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "prepack": "yarn build",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+    "release": "yarn lint && "
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0",
@@ -30,5 +39,9 @@
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "eslint": "^8.31.0",
     "nuxt": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/morgbn/nuxt-csurf.git"
   }
 }
