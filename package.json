@@ -21,7 +21,8 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0"
+    "@nuxt/kit": "^3.0.0",
+    "defu": "^6.1.1"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.2.1",
