@@ -46,7 +46,6 @@ export default defineNuxtModule<ModuleOptions>({
       name: key,
       as: key,
       from: resolve('runtime/composables')
-    }))
-    )
+    })))
   }
 })
