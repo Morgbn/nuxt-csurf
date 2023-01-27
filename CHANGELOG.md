@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/morgbn/nuxt-csurf/compare/v1.0.0...v1.0.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* :art: copy useFetch signature ([beeb821](https://github.com/morgbn/nuxt-csurf/commit/beeb821890c68e2d3c63a42574ce85f8b6717615)), closes [#3](https://github.com/morgbn/nuxt-csurf/issues/3)
+
 # 1.0.0 (2023-01-19)
 
 
