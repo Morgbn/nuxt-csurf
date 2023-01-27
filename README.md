@@ -40,9 +40,12 @@ This composable provides a convenient wrapper around `useFetch`. It automaticall
 
 ```javascript
 // app.vue
+useCsrf()
+
 const { data, pending, error, refresh } = useCsrfFetch('/api/login', { query: param1: 'value1' })
 ```
 
 ## Credits
 
 - inspired by [tiny-csrf](https://github.com/valexandersaulys/tiny-csrf) and [expressjs/csurf](https://github.com/expressjs/csurf)
+- see [OWASP CSRF cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
