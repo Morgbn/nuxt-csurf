@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto'
 import { defu } from 'defu'
-import { defineNuxtModule, createResolver, addServerHandler, addImports } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addImports, addPlugin } from '@nuxt/kit'
 import { RuntimeConfig } from '@nuxt/schema'
 
 import type { ModuleOptions } from './types'
@@ -47,5 +47,7 @@ export default defineNuxtModule<ModuleOptions>({
       as: key,
       from: resolve('runtime/composables')
     })))
+
+    addPlugin(resolve('runtime/plugin'))
   }
 })

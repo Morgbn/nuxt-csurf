@@ -36,13 +36,26 @@ The only thing you need to do to use the module in the default configuration is 
 ```
 
 ### useCsrfFetch
-This composable provides a convenient wrapper around `useFetch`. It automatically add the CSRF token in headers.
+This composable provides a convenient wrapper around `useFetch`. It automatically adds the CSRF token in headers.
 
 ```javascript
-// app.vue
-useCsrf()
-
 const { data, pending, error, refresh } = useCsrfFetch('/api/login', { query: param1: 'value1' })
+```
+
+### $csrfFetch
+This helper provides a convenient wrapper around `$fetch`. It automatically adds the CSRF token in headers.
+
+```javascript
+const { $csrfFetch } = useNuxtApp()
+const { data } = await $csrfFetch('/api/login', { method: 'POST', body: …, headers: … })
+```
+
+### useCsrf
+Use this composable if you need to access to the CSRF token value.
+
+```javascript
+const { csrf } = useCsrf()
+console.log(csrf) // something like: mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4
 ```
 
 ## Credits
