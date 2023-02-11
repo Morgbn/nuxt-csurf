@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/morgbn/nuxt-csurf/compare/v1.0.1...v1.1.0) (2023-02-11)
+
+
+### Features
+
+* :sparkles: add a plugin that provide a $fetch wrapper with csrf automatically added ([bc302ab](https://github.com/morgbn/nuxt-csurf/commit/bc302ab293b0cbaca21786a2dfbf71dab7c9c957)), closes [#4](https://github.com/morgbn/nuxt-csurf/issues/4)
+
 ## [1.0.1](https://github.com/morgbn/nuxt-csurf/compare/v1.0.0...v1.0.1) (2023-01-27)
 
 
