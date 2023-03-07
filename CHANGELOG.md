@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/morgbn/nuxt-csurf/compare/v1.1.0...v1.2.0) (2023-03-07)
+
+
+### Features
+
+* :arrow_up: upgrade nuxt ([acc9921](https://github.com/morgbn/nuxt-csurf/commit/acc9921e304b91f079180a265a9a47b45afcd699)), closes [#5](https://github.com/morgbn/nuxt-csurf/issues/5)
+
 # [1.1.0](https://github.com/morgbn/nuxt-csurf/compare/v1.0.1...v1.1.0) (2023-02-11)
 
 
