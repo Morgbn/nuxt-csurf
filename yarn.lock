@@ -6115,6 +6115,11 @@ uncrypto@^0.1.2:
   resolved "https://registry.yarnpkg.com/uncrypto/-/uncrypto-0.1.2.tgz#225aa7d41a13e4ad07ed837aedfa975a93afa924"
   integrity sha512-kuZwRKV615lEw/Xx3Iz56FKk3nOeOVGaVmw0eg+x4Mne28lCotNFbBhDW7dEBCBKyKbRQiCadEZeNAFPVC5cgw==
 
+uncsrf@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/uncsrf/-/uncsrf-1.1.0.tgz#d69b571328ce748c18ab5d8b3643321bcf5c4753"
+  integrity sha512-cRSMro81x4pbX20Ggd0SPAYsofOmOvd3Lqn706c6vSEtUEBDDb6CH+GLXStpo+Zbesn2IShDbdf2ijZ11U5JHw==
+
 unctx@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/unctx/-/unctx-2.1.1.tgz#415b07cf6ce42fad59ae1e4fa42ace2e71f4372d"

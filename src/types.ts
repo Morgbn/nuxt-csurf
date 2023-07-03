@@ -1,5 +1,7 @@
 // CookieSerializeOptions from cookie-es
 // can't do "import type { CookieSerializeOptions } from 'cookie-es'"
+import type { EncryptAlgorithm } from 'uncsrf'
+
 //  probably due to https://github.com/unjs/unbuild/issues/135
 interface CookieSerializeOptions {
   domain?: string | undefined;
@@ -18,6 +20,6 @@ export interface ModuleOptions {
   cookieKey?: string,
   methodsToProtect?: Array<string>, // the request methods we want CSRF protection for
   excludedUrls?: Array<string|[string, string]>, // any URLs we want to exclude from CSRF protection
-  encryptSecret?: string,
-  encryptAlgorithm?: string
+  encryptSecret?: string, // for non serverless runtime
+  encryptAlgorithm?: EncryptAlgorithm
 }

@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.1.0",
-    "defu": "^6.1.1"
+    "defu": "^6.1.1",
+    "uncsrf": "^1.1.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.2.1",
