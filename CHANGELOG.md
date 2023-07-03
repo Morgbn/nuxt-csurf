@@ -1,3 +1,11 @@
+# [1.3.0-beta.1](https://github.com/morgbn/nuxt-csurf/compare/v1.2.0...v1.3.0-beta.1) (2023-07-03)
+
+
+### Features
+
+* :sparkles: add useLazyCsrfFetch ([b06beac](https://github.com/morgbn/nuxt-csurf/commit/b06beac48c3aaa5f581d40e2b955a28a34d036f8))
+* :sparkles: support serverless ([4628f29](https://github.com/morgbn/nuxt-csurf/commit/4628f29d78cc17d668b0be68f5609f9b8fd121c6))
+
 # [1.2.0](https://github.com/morgbn/nuxt-csurf/compare/v1.1.0...v1.2.0) (2023-03-07)
 
 
