@@ -1,10 +1,4 @@
-import { useNuxtApp, useFetch } from '#app'
-
-import type { FetchError } from 'ofetch'
-import type { NitroFetchRequest, AvailableRouterMethod } from 'nitropack'
-import type { Ref } from 'vue'
-import type { KeyOfRes, AsyncData, PickFrom } from 'nuxt/dist/app/composables/asyncData'
-import type { FetchResult, UseFetchOptions } from 'nuxt/dist/app/composables/fetch'
+import { useNuxtApp, useFetch, useLazyFetch } from '#app'
 
 export function useCsrf () {
   const nuxtApp = useNuxtApp()
@@ -17,23 +11,16 @@ export function useCsrf () {
   return { csrf: nuxtApp.payload.csrfToken }
 }
 
-export function useCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  Transform extends (res: _ResT) => any = (res: _ResT) => _ResT,
-  PickKeys extends KeyOfRes<Transform> = KeyOfRes<Transform>
-> (
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: UseFetchOptions<_ResT, Transform, PickKeys, ReqT, Method>
-): AsyncData<PickFrom<ReturnType<Transform>, PickKeys>, ErrorT | null> {
-  const { csrf } = useCsrf()
-
-  opts = opts || {}
-  opts.headers = (opts.headers || {}) as Record<string, string>
-  opts.headers['csrf-token'] = csrf // add csrftoken to req headers
-
-  return useFetch<ResT, ErrorT, ReqT, Method, _ResT, Transform, PickKeys>(request, opts)
+function wrapWithCsrf<T extends Array<any>, U> (fn: (...args: T) => U) {
+  return (...args: T): U => {
+    const { csrf } = useCsrf()
+    args[1] = args[1] || {}
+    args[1].headers = (args[1].headers || {}) as Record<string, string>
+    args[1].headers['csrf-token'] = csrf // add csrftoken to req headers
+    return fn(...args)
+  }
 }
+
+export const useCsrfFetch = wrapWithCsrf(useFetch)
+
+export const useLazyCsrfFetch = wrapWithCsrf(useLazyFetch)
