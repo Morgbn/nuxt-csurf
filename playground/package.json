@@ -3,5 +3,10 @@
   "name": "nuxt-csurf-playground",
   "dependencies": {
     "nuxt-csurf": "workspace:*"
+  },
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "nuxi preview"
   }
 }
