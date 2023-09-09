@@ -1,7 +1,5 @@
-import { randomBytes } from 'crypto'
 import { defu } from 'defu'
-import { defineNuxtModule, createResolver, addServerHandler, addImports, addPlugin } from '@nuxt/kit'
-import { RuntimeConfig } from '@nuxt/schema'
+import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
 
 import type { ModuleOptions } from './types'
 
@@ -21,9 +19,7 @@ export default defineNuxtModule<ModuleOptions>({
       sameSite: 'strict'
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
-    excludedUrls: [],
-    encryptSecret: randomBytes(22).toString('base64'),
-    encryptAlgorithm: 'aes-256-cbc'
+    excludedUrls: []
   },
   setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -36,8 +32,9 @@ export default defineNuxtModule<ModuleOptions>({
       options.cookie.secure = !!options.https
     }
 
-    nuxt.options.runtimeConfig.csurf = defu(nuxt.options.runtimeConfig.csurf, options as RuntimeConfig['csurf'])
+    nuxt.options.runtimeConfig.csurf = defu(nuxt.options.runtimeConfig.csurf, { ...options })
     addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
+    addServerPlugin(resolve('runtime/server/plugin/csrf'))
 
     // Transpile runtime
     nuxt.options.build.transpile.push(resolve('runtime'))
@@ -51,3 +48,9 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve('runtime/plugin'))
   }
 })
+
+declare module 'nuxt/schema' {
+  interface RuntimeConfig {
+    csurf: ModuleOptions
+  }
+}
