@@ -1,7 +1,5 @@
 import { defu } from 'defu'
 import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
-import * as csrf from 'uncsrf'
-import type { EncryptSecret } from 'uncsrf'
 
 import type { ModuleOptions } from './types'
 
@@ -23,7 +21,7 @@ export default defineNuxtModule<ModuleOptions>({
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
     excludedUrls: []
   },
-  async setup (options, nuxt) {
+  setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
     if (!options.cookieKey) {
@@ -34,12 +32,7 @@ export default defineNuxtModule<ModuleOptions>({
       options.cookie.secure = !!options.https
     }
 
-    const secretKey = await csrf.importEncryptSecret(options.encryptSecret, options.encryptAlgorithm)
-
-    nuxt.options.runtimeConfig.csurf = defu(nuxt.options.runtimeConfig.csurf, {
-      ...options,
-      secretKey
-    })
+    nuxt.options.runtimeConfig.csurf = defu(nuxt.options.runtimeConfig.csurf, { ...options })
     addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
     addServerPlugin(resolve('runtime/server/plugin/csrf'))
 
@@ -58,8 +51,6 @@ export default defineNuxtModule<ModuleOptions>({
 
 declare module 'nuxt/schema' {
   interface RuntimeConfig {
-    csurf: ModuleOptions & {
-      readonly secretKey: EncryptSecret
-    }
+    csurf: ModuleOptions
   }
 }

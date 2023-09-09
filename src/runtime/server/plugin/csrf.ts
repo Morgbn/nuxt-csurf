@@ -2,6 +2,7 @@ import * as csrf from 'uncsrf'
 import { getCookie, setCookie } from 'h3'
 import type { NitroApp } from 'nitropack'
 import { useRuntimeConfig } from '#imports'
+import { useSecretKey } from '../helpers'
 type NitroAppPlugin = (nitro: NitroApp) => void
 
 const defineNitroPlugin = (def: NitroAppPlugin): NitroAppPlugin => def
@@ -18,7 +19,7 @@ export default defineNitroPlugin((nitroApp) => {
       setCookie(event, cookieKey, secret, csrfConfig.cookie)
     }
 
-    const csrfToken = await csrf.create(secret, csrfConfig.secretKey, csrfConfig.encryptAlgorithm)
+    const csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
     html.body.push(`<script>window._csrfToken = "${csrfToken}"</script>`)
   })
 })
