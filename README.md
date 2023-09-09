@@ -7,7 +7,11 @@
 
 # Nuxt Csurf
 Cross-Site Request Forgery (CSRF) prevention. \
-Create a middleware for CSRF token creation and validation. 
+Create a middleware for CSRF token creation and validation.
+
+✅ Supports Node.js server & serverless environments \
+✅ Supports both universal and client-side rendering (`ssr: true|false`) \
+✅ TypeScript
 
 ## Setup
 
@@ -36,8 +40,8 @@ The only thing you need to do to use the module in the default configuration is 
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
     excludedUrls: ['/nocsrf1', ['/nocsrf2/.*', 'i']], // any URLs we want to exclude from CSRF protection
-    encryptSecret: /** a 32 bits secret */, // random bytes by default
-    encryptAlgorithm: 'aes-256-cbc'
+    encryptSecret: /** a 32 bits secret */, // only for non serverless runtime, random bytes by default
+    encryptAlgorithm: 'aes-256-cbc' // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
   } 
 }
 ```
