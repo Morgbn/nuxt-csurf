@@ -1,14 +1,8 @@
-import { useNuxtApp, useFetch, useLazyFetch } from '#app'
+import { useFetch, useLazyFetch } from '#app'
 
 export function useCsrf () {
-  const nuxtApp = useNuxtApp()
-  if (process.server) {
-    const res = nuxtApp.ssrContext?.event.node.res ?? {}
-    if ('_csrftoken' in res) {
-      nuxtApp.payload.csrfToken = res._csrftoken // expose csrftoken to client
-    }
-  }
-  return { csrf: nuxtApp.payload.csrfToken }
+  // @ts-ignore
+  return { csrf: process.server ? undefined : window._csrfToken }
 }
 
 function wrapWithCsrf<T extends Array<any>, U> (fn: (...args: T) => U) {

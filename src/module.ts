@@ -1,5 +1,5 @@
 import { defu } from 'defu'
-import { defineNuxtModule, createResolver, addServerHandler, addImports, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
 import * as csrf from 'uncsrf'
 import type { EncryptSecret } from 'uncsrf'
 
@@ -21,8 +21,7 @@ export default defineNuxtModule<ModuleOptions>({
       sameSite: 'strict'
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
-    excludedUrls: [],
-    encryptAlgorithm: csrf.defaultEncryptAlgorithm
+    excludedUrls: []
   },
   async setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -42,6 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
       secretKey
     })
     addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
+    addServerPlugin(resolve('runtime/server/plugin/csrf'))
 
     // Transpile runtime
     nuxt.options.build.transpile.push(resolve('runtime'))

@@ -1,32 +1,24 @@
 
 import * as csrf from 'uncsrf'
-import { defineEventHandler, getCookie, setCookie, getHeader, createError } from 'h3'
+import { defineEventHandler, getCookie, getHeader, createError } from 'h3'
 import { useRuntimeConfig } from '#imports'
 
 const csrfConfig = useRuntimeConfig().csurf
+const methodsToProtect = csrfConfig.methodsToProtect ?? []
+const excludedUrls = csrfConfig.excludedUrls ?? []
 
 export default defineEventHandler(async (event) => {
-  let secret = getCookie(event, csrfConfig.cookieKey)
-  if (!secret) {
-    secret = csrf.randomSecret()
-    setCookie(event, csrfConfig.cookieKey, csrfConfig.secret, csrfConfig.cookie)
-  }
-
-  Object.defineProperty(event.node.res, '_csrftoken', {
-    value: await csrf.create(secret ?? '', csrfConfig.secretKey, csrfConfig.encryptAlgorithm),
-    enumerable: true
-  })
-
   const method = event.node.req.method ?? ''
-  if (!csrfConfig.methodsToProtect.includes(method)) { return }
+  if (!methodsToProtect.includes(method)) { return }
 
+  const secret = getCookie(event, csrfConfig.cookieKey!) ?? ''
+  const token = getHeader(event, 'csrf-token') ?? ''
   // verify the incoming csrf token
   const url = event.node.req.url ?? ''
-  const excluded = csrfConfig.excludedUrls?.filter((el: string|[string, string]) =>
-    Array.isArray(el) ? new RegExp(...el).test(url) : el === url
-  ).length > 0
-  const token = getHeader(event, 'csrf-token') ?? ''
-  if (!excluded && !(await csrf.verify(secret ?? '', token, csrfConfig.secretKey, csrfConfig.encryptAlgorithm))) {
+  const excluded = excludedUrls.some(el => Array.isArray(el)
+    ? new RegExp(...el).test(url)
+    : el === url)
+  if (!excluded && !(await csrf.verify(secret, token, csrfConfig.secretKey, csrfConfig.encryptAlgorithm))) {
     throw createError({
       statusCode: 403,
       name: 'EBADCSRFTOKEN',
