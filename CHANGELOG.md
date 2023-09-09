@@ -1,3 +1,19 @@
+# [1.3.0](https://github.com/morgbn/nuxt-csurf/compare/v1.2.0...v1.3.0) (2023-09-09)
+
+
+### Bug Fixes
+
+* :bug: importEncryptSecret on runtime ([65c22c0](https://github.com/morgbn/nuxt-csurf/commit/65c22c0a358bdb16730c2080ed75f9d42288874c))
+* :hammer: add playground scripts ([5a26b63](https://github.com/morgbn/nuxt-csurf/commit/5a26b633ec13f70c437be4162ac231ab6f201941))
+* :rotating_light: change eslint config ([0c19252](https://github.com/morgbn/nuxt-csurf/commit/0c192525140bc94673a671df3808dc5165712bd2))
+
+
+### Features
+
+* :sparkles: add useLazyCsrfFetch ([b06beac](https://github.com/morgbn/nuxt-csurf/commit/b06beac48c3aaa5f581d40e2b955a28a34d036f8))
+* :sparkles: support non ssr build ([7624ea1](https://github.com/morgbn/nuxt-csurf/commit/7624ea1acb8943fc158626c767093ae59a0a2663)), closes [#12](https://github.com/morgbn/nuxt-csurf/issues/12) [#9](https://github.com/morgbn/nuxt-csurf/issues/9) [#8](https://github.com/morgbn/nuxt-csurf/issues/8)
+* :sparkles: support serverless ([4628f29](https://github.com/morgbn/nuxt-csurf/commit/4628f29d78cc17d668b0be68f5609f9b8fd121c6))
+
 # [1.2.0](https://github.com/morgbn/nuxt-csurf/compare/v1.1.0...v1.2.0) (2023-03-07)
 
 
