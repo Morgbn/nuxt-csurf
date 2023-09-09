@@ -13,7 +13,10 @@
     </button>
     <br>
     <br>
-    <pre v-if="msg" :style="{ color: msgColor }">{{ msg }}</pre>
+    <pre
+      v-if="msg"
+      :style="{ color: msgColor }"
+    >{{ msg }}</pre>
   </div>
 </template>
 
