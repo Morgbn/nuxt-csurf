@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/morgbn/nuxt-csurf/compare/v1.3.0...v1.3.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* :label: useCsrfFetch type ([ed77553](https://github.com/morgbn/nuxt-csurf/commit/ed7755398a70af52a835c106c019c1d7965c2fdf)), closes [#13](https://github.com/morgbn/nuxt-csurf/issues/13)
+
 # [1.3.0](https://github.com/morgbn/nuxt-csurf/compare/v1.2.0...v1.3.0) (2023-09-09)
 
 
