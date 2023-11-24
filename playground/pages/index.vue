@@ -11,6 +11,9 @@
     <button @click="testPost(false, '/nocsrf')">
       POST /nocsrf (without csrf header)
     </button>
+    <button @click="testPost(true, '/error')">
+      POST /error (throw an error one time in two)
+    </button>
     <br>
     <br>
     <pre
