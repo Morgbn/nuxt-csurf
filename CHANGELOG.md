@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/morgbn/nuxt-csurf/compare/v1.3.1...v1.3.2) (2023-11-24)
+
+
+### Bug Fixes
+
+* :art: store token in meta tag ([7d770bb](https://github.com/morgbn/nuxt-csurf/commit/7d770bb6102c353158115feb5e05b313bd7ee59d))
+
 ## [1.3.1](https://github.com/morgbn/nuxt-csurf/compare/v1.3.0...v1.3.1) (2023-09-11)
 
 
