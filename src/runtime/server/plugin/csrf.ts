@@ -20,6 +20,6 @@ export default defineNitroPlugin((nitroApp) => {
     }
 
     const csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
-    html.body.push(`<script>window._csrfToken = "${csrfToken}"</script>`)
+    html.head.push(`<meta name="csrf-token" content="${csrfToken}">`)
   })
 })

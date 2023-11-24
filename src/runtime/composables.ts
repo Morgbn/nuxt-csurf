@@ -107,7 +107,7 @@ export function useLazyCsrfFetch<
   autoKey)
 }
 
-export function useCsrf () {
-  // @ts-ignore
-  return { csrf: process.server ? undefined : window._csrfToken }
+export function useCsrf() {
+  const metaTag = process.server ? null : window.document.querySelector('meta[name="csrf-token"]')
+  return { csrf: metaTag?.getAttribute('content') }
 }
