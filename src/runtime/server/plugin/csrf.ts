@@ -24,7 +24,7 @@ export default defineNitroPlugin((nitroApp) => {
   });
 
   nitroApp.hooks.hook('render:html', async (html, { event }) => {
-    if(event.context.csrfToken){
+    if(!event.context.csrfToken){
       return;
     }
     html.head.push(`<meta name="csrf-token" content="${event.context.csrfToken}">`)
