@@ -12,14 +12,19 @@ export default defineNitroPlugin((nitroApp) => {
   const csrfConfig = useRuntimeConfig().csurf
   const cookieKey = csrfConfig.cookieKey!
 
-  nitroApp.hooks.hook('render:html', async (html, { event }) => {
-    let secret = getCookie(event, cookieKey)
+  nitroApp.hooks.hook("request", async (event)=>{
+    let secret = getCookie(event, cookieKey);
     if (!secret) {
-      secret = csrf.randomSecret()
-      setCookie(event, cookieKey, secret, csrfConfig.cookie)
+      secret = csrf.randomSecret();
+      setCookie(event, cookieKey, secret, csrfConfig.cookie);
     }
+    event.context.csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm);
+  });
 
-    const csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
-    html.head.push(`<meta name="csrf-token" content="${csrfToken}">`)
-  })
+  nitroApp.hooks.hook("render:html", async (html, { event }) => {
+    if(event.context?.csrfToken){
+      return;
+    }
+    html.head.push(`<meta name="csrf-token" content="${event.context.csrfToken}">`);
+  });
 })
