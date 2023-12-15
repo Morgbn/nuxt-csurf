@@ -12,14 +12,28 @@ export default defineNitroPlugin((nitroApp) => {
   const csrfConfig = useRuntimeConfig().csurf
   const cookieKey = csrfConfig.cookieKey!
 
-  nitroApp.hooks.hook('render:html', async (html, { event }) => {
-    let secret = getCookie(event, cookieKey)
-    if (!secret) {
-      secret = csrf.randomSecret()
-      setCookie(event, cookieKey, secret, csrfConfig.cookie)
-    }
+  if (csrfConfig.addCsrfTokenToEventCtx) {
+    nitroApp.hooks.hook('request', async (event) => {
+      let secret = getCookie(event, cookieKey)
+      if (!secret) {
+        secret = csrf.randomSecret()
+        setCookie(event, cookieKey, secret, csrfConfig.cookie)
+      }
+      event.context.csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
+    })
+    nitroApp.hooks.hook('render:html', async (html, { event }) => {
+      html.head.push(`<meta name="csrf-token" content="${event.context.csrfToken}">`)
+    })
+  } else {
+    nitroApp.hooks.hook('render:html', async (html, { event }) => {
+      let secret = getCookie(event, cookieKey)
+      if (!secret) {
+        secret = csrf.randomSecret()
+        setCookie(event, cookieKey, secret, csrfConfig.cookie)
+      }
 
-    const csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
-    html.head.push(`<meta name="csrf-token" content="${csrfToken}">`)
-  })
+      const csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
+      html.head.push(`<meta name="csrf-token" content="${csrfToken}">`)
+    })
+  }
 })

@@ -15,11 +15,12 @@ interface CookieSerializeOptions {
 }
 
 export interface ModuleOptions {
-  https?: boolean,
-  cookie?: CookieSerializeOptions,
-  cookieKey?: string,
-  methodsToProtect?: Array<string>, // the request methods we want CSRF protection for
-  excludedUrls?: Array<string|[string, string]>, // any URLs we want to exclude from CSRF protection
-  encryptSecret?: string, // for non serverless runtime
+  https?: boolean
+  cookie?: CookieSerializeOptions
+  cookieKey?: string
+  methodsToProtect?: Array<string> // the request methods we want CSRF protection for
+  excludedUrls?: Array<string|[string, string]> // any URLs we want to exclude from CSRF protection
+  encryptSecret?: string // for non serverless runtime
   encryptAlgorithm?: EncryptAlgorithm
+  addCsrfTokenToEventCtx?: boolean // to run useCsrfFetch on server
 }

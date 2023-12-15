@@ -1,5 +1,5 @@
 // Adapted from https://github.com/nuxt/nuxt/blob/7046930a677f4c987afaee5a0165841b0e0a517f/packages/nuxt/src/app/composables/fetch.ts
-import { useFetch, type FetchResult, type UseFetchOptions } from '#app'
+import { useFetch, type FetchResult, type UseFetchOptions, useNuxtApp } from '#app'
 import type { Ref } from 'vue'
 import type { FetchError } from 'ofetch'
 import type { NitroFetchRequest, AvailableRouterMethod } from 'nitropack'
@@ -108,6 +108,9 @@ export function useLazyCsrfFetch<
 }
 
 export function useCsrf() {
-  const metaTag = process.server ? null : window.document.querySelector('meta[name="csrf-token"]')
+  if (process.server) {
+    return { csrf: useNuxtApp().ssrContext?.event?.context?.csrfToken }
+  }
+  const metaTag = window.document.querySelector('meta[name="csrf-token"]')
   return { csrf: metaTag?.getAttribute('content') }
 }
