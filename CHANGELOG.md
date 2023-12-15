@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/morgbn/nuxt-csurf/compare/v1.3.2...v1.4.0) (2023-12-15)
+
+
+### Bug Fixes
+
+* :rotating_light: extends ./.nuxt/tsconfig.json ([4b18bda](https://github.com/morgbn/nuxt-csurf/commit/4b18bda72f44ed3872293ea6353e39ec00827363))
+
+
+### Features
+
+* :sparkles: add `addCsrfTokenToEventCtx` option ([e4408fc](https://github.com/morgbn/nuxt-csurf/commit/e4408fc7d2e77b1be9746818d76ae86ad4e0f42f)), closes [#20](https://github.com/morgbn/nuxt-csurf/issues/20) [#22](https://github.com/morgbn/nuxt-csurf/issues/22)
+
 ## [1.3.2](https://github.com/morgbn/nuxt-csurf/compare/v1.3.1...v1.3.2) (2023-11-24)
 
 
