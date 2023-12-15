@@ -20,6 +20,9 @@
       v-if="msg"
       :style="{ color: msgColor }"
     >{{ msg }}</pre>
+    <hr>
+    <h3>Result of <pre style="display: inline-block; background-color: lightgrey;">/api/data</pre>:</h3>
+    <pre>{{ preFetchedData }}</pre>
   </div>
 </template>
 
@@ -37,4 +40,8 @@ const testPost = async (withCsrf, url = '/test') => {
   msg.value = data.value || error.value
   if (error.value) { msgColor.value = 'red' }
 }
+
+const { data: preFetchedData } = useCsrfFetch('/api/data', { params: { d: 'specific' } })
+// Need "addCsrfTokenToEventCtx" to be true in csurf config (in nuxt.config.js)
+// const { data: preFetchedData } = useCsrfFetch('/api/data', { method: 'post', body: { d: 'specific' } })
 </script>
