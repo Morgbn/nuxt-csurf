@@ -41,7 +41,8 @@ The only thing you need to do to use the module in the default configuration is 
     methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
     excludedUrls: ['/nocsrf1', ['/nocsrf2/.*', 'i']], // any URLs we want to exclude from CSRF protection
     encryptSecret: /** a 32 bits secret */, // only for non serverless runtime, random bytes by default
-    encryptAlgorithm: 'aes-256-cbc' // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
+    encryptAlgorithm: 'aes-256-cbc', // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
+    addCsrfTokenToEventCtx: true // default false, to run useCsrfFetch on server set it to true
   } 
 }
 ```
