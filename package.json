@@ -22,11 +22,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt-module-build",
+    "build": "nuxt-module-build build",
     "dev": "nuxi dev playground",
     "lint": "eslint --ext .js,.ts,.vue .",
+    "dev:build": "nuxi build playground",
     "prepack": "yarn build",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground"
   },
   "dependencies": {
     "@nuxt/kit": "^3.8.2",
