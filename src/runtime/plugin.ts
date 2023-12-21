@@ -1,8 +1,10 @@
-import { $fetch } from 'ofetch'
-import type { FetchOptions } from 'ofetch'
+import { type FetchOptions, $fetch } from 'ofetch'
+import type { Plugin } from '#app'
 import { defineNuxtPlugin, useCsrf } from '#imports'
 
-export default defineNuxtPlugin(() => {
+type CsrfFetch = (request: string, options?: FetchOptions, fetch?: typeof $fetch) => Promise<any>
+
+const plugin: Plugin<{ csrfFetch: CsrfFetch }> = defineNuxtPlugin(() => {
   const { csrf } = useCsrf()
   return {
     provide: {
@@ -15,3 +17,5 @@ export default defineNuxtPlugin(() => {
     }
   }
 })
+
+export default plugin
