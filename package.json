@@ -44,6 +44,9 @@
     "eslint": "^8.56.0",
     "nuxt": "^3.10.2"
   },
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/morgbn/nuxt-csurf.git"
