@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/morgbn/nuxt-csurf/compare/v1.4.0...v1.4.1) (2024-02-21)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: string-width error ([dcad5e8](https://github.com/morgbn/nuxt-csurf/commit/dcad5e88f70883161c92fe485cfa26f08093768f))
+* :label: add types to $csrfFetch ([b3ffc49](https://github.com/morgbn/nuxt-csurf/commit/b3ffc490f488f55340afdefadc1ffcdc6bcaed00)), closes [#19](https://github.com/morgbn/nuxt-csurf/issues/19)
+
 # [1.4.0](https://github.com/morgbn/nuxt-csurf/compare/v1.3.2...v1.4.0) (2023-12-15)
 
 
