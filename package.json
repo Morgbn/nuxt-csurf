@@ -12,6 +12,7 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/types.d.ts",
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
     }
@@ -26,21 +27,22 @@
     "dev": "nuxi dev playground",
     "lint": "eslint --ext .js,.ts,.vue .",
     "dev:build": "nuxi build playground",
-    "prepack": "yarn build",
+    "prepack": "nuxt-module-build build",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.8.2",
-    "defu": "^6.1.3",
+    "@nuxt/kit": "^3.10.2",
+    "defu": "^6.1.4",
     "uncsrf": "^1.1.1"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^1.0.8",
     "@nuxt/eslint-config": "^0.2.0",
-    "@nuxt/module-builder": "^0.5.4",
-    "@nuxt/schema": "^3.8.2",
-    "@types/node": "^20.10.0",
-    "eslint": "^8.54.0",
-    "nuxt": "^3.8.2"
+    "@nuxt/module-builder": "^0.5.5",
+    "@nuxt/schema": "^3.10.2",
+    "@types/node": "^20.11.19",
+    "eslint": "^8.56.0",
+    "nuxt": "^3.10.2"
   },
   "repository": {
     "type": "git",
