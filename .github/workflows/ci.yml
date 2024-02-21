@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: yarn
       - run: yarn install
       - run: yarn dev:prepare
@@ -30,7 +30,7 @@ jobs:
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]')
         run: |
-          yarn global add semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github && 
+          yarn global add semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github &&
           semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
