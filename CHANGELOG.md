@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/morgbn/nuxt-csurf/compare/v1.4.1...v1.4.2) (2024-02-22)
+
+
+### Bug Fixes
+
+* :label: declare plugin type ([87ad5fa](https://github.com/morgbn/nuxt-csurf/commit/87ad5fafd85312086f454577c8925e2b8f13f73c))
+
 ## [1.4.1](https://github.com/morgbn/nuxt-csurf/compare/v1.4.0...v1.4.1) (2024-02-21)
 
 
