@@ -20,6 +20,7 @@ export default defineNitroPlugin((nitroApp) => {
         setCookie(event, cookieKey, secret, csrfConfig.cookie)
       }
       event.context.csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
+      event.context.csrfSecret = secret
     })
     nitroApp.hooks.hook('render:html', async (html, { event }) => {
       html.head.push(`<meta name="csrf-token" content="${event.context.csrfToken}">`)
