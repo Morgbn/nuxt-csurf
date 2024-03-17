@@ -5,8 +5,13 @@ export default defineNuxtConfig({
   modules: [
     module
   ],
+  routeRules: {
+    '/api/nocsrf': {
+      csurf: false
+    }
+  },
   csurf: {
     https: false,
-    excludedUrls: [['/no.*', 'i'], '/test-without-csrf']
+    methodsToProtect: ['POST']
   }
 })

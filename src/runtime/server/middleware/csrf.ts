@@ -1,25 +1,26 @@
 
 import * as csrf from 'uncsrf'
 import { defineEventHandler, getCookie, getHeader, createError } from 'h3'
-import { useRuntimeConfig } from '#imports'
+import { useRuntimeConfig, getRouteRules } from '#imports'
 import { useSecretKey } from '../helpers'
+import { defuReplaceArray } from '../../../utils'
 
-const csrfConfig = useRuntimeConfig().csurf
-const methodsToProtect = csrfConfig.methodsToProtect ?? []
-const excludedUrls = csrfConfig.excludedUrls ?? []
+const baseConfig = useRuntimeConfig().csurf
 
 export default defineEventHandler(async (event) => {
+  const { csurf } = getRouteRules(event)
+  if (csurf === false || csurf?.enabled === false) { return } // csrf protection disabled for this route
+
+  const csrfConfig = defuReplaceArray(csurf, baseConfig)
   const method = event.node.req.method ?? ''
+  const methodsToProtect = csrfConfig.methodsToProtect ?? []
   if (!methodsToProtect.includes(method)) { return }
 
   const secret = getCookie(event, csrfConfig.cookieKey!) ?? ''
   const token = getHeader(event, 'csrf-token') ?? ''
   // verify the incoming csrf token
-  const url = event.node.req.url ?? ''
-  const excluded = excludedUrls.some(el => Array.isArray(el)
-    ? new RegExp(...el).test(url)
-    : el === url)
-  if (!excluded && !(await csrf.verify(secret, token, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm))) {
+  const isValidToken = await csrf.verify(secret, token, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
+  if (!isValidToken) {
     throw createError({
       statusCode: 403,
       name: 'EBADCSRFTOKEN',

@@ -1,6 +1,5 @@
-import { defu } from 'defu'
 import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
-
+import { defuReplaceArray } from './utils'
 import type { ModuleOptions } from './types'
 
 export * from './types'
@@ -18,8 +17,7 @@ export default defineNuxtModule<ModuleOptions>({
       httpOnly: true,
       sameSite: 'strict'
     },
-    methodsToProtect: ['POST', 'PUT', 'PATCH'],
-    excludedUrls: []
+    methodsToProtect: ['POST', 'PUT', 'PATCH']
   },
   setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -32,9 +30,12 @@ export default defineNuxtModule<ModuleOptions>({
       options.cookie.secure = !!options.https
     }
 
-    nuxt.options.runtimeConfig.csurf = defu(nuxt.options.runtimeConfig.csurf, { ...options })
-    addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
-    addServerPlugin(resolve('runtime/server/plugin/csrf'))
+    nuxt.options.runtimeConfig.csurf = defuReplaceArray(nuxt.options.runtimeConfig.csurf, { ...options })
+
+    if (options.enabled !== false) {
+      addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
+      addServerPlugin(resolve('runtime/server/plugin/csrf'))
+    }
 
     // Transpile runtime
     nuxt.options.build.transpile.push(resolve('runtime'))
@@ -52,5 +53,11 @@ export default defineNuxtModule<ModuleOptions>({
 declare module 'nuxt/schema' {
   interface RuntimeConfig {
     csurf: ModuleOptions
+  }
+}
+
+declare module 'nitropack' {
+  interface NitroRouteConfig {
+    csurf?: Partial<ModuleOptions> | false;
   }
 }

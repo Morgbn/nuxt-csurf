@@ -19,8 +19,8 @@ export interface ModuleOptions {
   cookie?: CookieSerializeOptions
   cookieKey?: string
   methodsToProtect?: Array<string> // the request methods we want CSRF protection for
-  excludedUrls?: Array<string|[string, string]> // any URLs we want to exclude from CSRF protection
   encryptSecret?: string // for non serverless runtime
   encryptAlgorithm?: EncryptAlgorithm
   addCsrfTokenToEventCtx?: boolean // to run useCsrfFetch on server
+  enabled?: boolean // disabled module server middleware/plugin when `enabled` is set to `false` (you will still have access to `useCsrf`/`useCsrfFetch` client composables)
 }
