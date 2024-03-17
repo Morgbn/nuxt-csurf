@@ -39,13 +39,10 @@
     "@nuxt/devtools": "^1.0.8",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.10.2",
-    "@types/node": "^20.11.19",
-    "eslint": "^8.56.0",
-    "nuxt": "^3.10.2"
-  },
-  "resolutions": {
-    "jackspeak": "2.1.1"
+    "@nuxt/schema": "^3.11.0",
+    "@types/node": "^20.11.28",
+    "eslint": "^8.57.0",
+    "nuxt": "^3.11.0"
   },
   "repository": {
     "type": "git",
