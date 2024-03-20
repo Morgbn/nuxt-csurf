@@ -3,7 +3,7 @@ import * as csrf from 'uncsrf'
 import { defineEventHandler, getCookie, getHeader, createError } from 'h3'
 import { useRuntimeConfig, getRouteRules } from '#imports'
 import { useSecretKey } from '../helpers'
-import { defuReplaceArray } from '../../../utils'
+import { defuReplaceArray } from '../../utils'
 
 const baseConfig = useRuntimeConfig().csurf
 

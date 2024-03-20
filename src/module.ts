@@ -1,5 +1,5 @@
 import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
-import { defuReplaceArray } from './utils'
+import { defuReplaceArray } from './runtime/utils'
 import type { ModuleOptions } from './types'
 
 export * from './types'
