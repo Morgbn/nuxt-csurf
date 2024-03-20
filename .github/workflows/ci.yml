@@ -15,8 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: yarn
@@ -29,9 +30,8 @@ jobs:
         if: |
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]')
-        run: |
-          yarn global add semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github &&
-          semantic-release
+        run:
+          yarn dlx -p semantic-release -p @semantic-release/commit-analyzer -p @semantic-release/release-notes-generator -p @semantic-release/changelog -p @semantic-release/npm -p @semantic-release/git -p @semantic-release/github semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}

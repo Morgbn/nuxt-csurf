@@ -47,5 +47,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/morgbn/nuxt-csurf.git"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
