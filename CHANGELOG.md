@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/morgbn/nuxt-csurf/compare/v1.4.2...v1.5.0) (2024-03-20)
+
+
+### Features
+
+* :sparkles: per-route configuration & ability to disable ([7550de1](https://github.com/morgbn/nuxt-csurf/commit/7550de143af2910a6b0df1db429dd67236ff4f60)), closes [#25](https://github.com/morgbn/nuxt-csurf/issues/25) [baroshem/nuxt-security#334](https://github.com/baroshem/nuxt-security/issues/334)
+
 ## [1.4.2](https://github.com/morgbn/nuxt-csurf/compare/v1.4.1...v1.4.2) (2024-02-22)
 
 
