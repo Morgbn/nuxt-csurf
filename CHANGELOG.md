@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/morgbn/nuxt-csurf/compare/v1.5.0...v1.5.1) (2024-03-20)
+
+
+### Bug Fixes
+
+* :truck: mv utils/ in runtime ([e728ff2](https://github.com/morgbn/nuxt-csurf/commit/e728ff22db2d13f4deca2637193aba01824daedb)), closes [#30](https://github.com/morgbn/nuxt-csurf/issues/30)
+
 # [1.5.0](https://github.com/morgbn/nuxt-csurf/compare/v1.4.2...v1.5.0) (2024-03-20)
 
 
