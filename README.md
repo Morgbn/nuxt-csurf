@@ -20,14 +20,12 @@ Create a middleware for CSRF token creation and validation.
 npx nuxi@latest module add csurf
 ```
 
-## Configuration
+## Global configuration
 
 ```javascript
 // nuxt.config.js
-{
-  modules: [
-    "nuxt-csurf",
-  ],
+export default defineNuxtConfig({
+  modules: ['nuxt-csurf'],
   csurf: { // optional
     https: false, // default true if in production
     cookieKey: '', // "__Host-csrf" if https is true otherwise just "csrf"
@@ -41,7 +39,24 @@ npx nuxi@latest module add csurf
     encryptAlgorithm: 'aes-256-cbc', // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
     addCsrfTokenToEventCtx: true // default false, to run useCsrfFetch on server set it to true
   } 
-}
+})
+```
+
+## Per route configuration
+To enable per-route configuration, use the routeRules like following:
+```javascript
+export default defineNuxtConfig({
+  routeRules: {
+    '/api/nocsrf': {
+      csurf: false
+    },
+    '/api/test': {
+      csurf: {
+        methodsToProtect: ['POST'] // protect POST request only
+      }
+    }
+  }
+})
 ```
 
 ### useCsrfFetch
