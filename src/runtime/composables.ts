@@ -108,7 +108,7 @@ export function useLazyCsrfFetch<
 }
 
 export function useCsrf() {
-  if (process.server) {
+  if (import.meta.server) {
     return { csrf: useNuxtApp().ssrContext?.event?.context?.csrfToken }
   }
   const metaTag = window.document.querySelector('meta[name="csrf-token"]')
