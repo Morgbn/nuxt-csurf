@@ -14,15 +14,13 @@ Create a middleware for CSRF token creation and validation.
 ✅ Per-route configuration \
 ✅ TypeScript
 
-## Setup
+## Installation
 
 ```sh
 npx nuxi@latest module add csurf
 ```
 
-## Usage
-
-The only thing you need to do to use the module in the default configuration is to register the module in the `modules` array in `nuxt.config.ts`:
+## Configuration
 
 ```javascript
 // nuxt.config.js
