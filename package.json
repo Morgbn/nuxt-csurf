@@ -1,6 +1,6 @@
 {
   "name": "nuxt-csurf",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Nuxt Cross-Site Request Forgery (CSRF) Prevention",
   "keywords": [
     "nuxt",

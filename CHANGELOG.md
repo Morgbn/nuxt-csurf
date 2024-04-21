@@ -1,3 +1,11 @@
+## [1.5.2](https://github.com/morgbn/nuxt-csurf/compare/v1.5.1...v1.5.2) (2024-04-21)
+
+
+### Bug Fixes
+
+* :bug: import missing useLazyCsrfFetch ([3343a9d](https://github.com/morgbn/nuxt-csurf/commit/3343a9d29fc1855e76a14710b721507e6586a6bd)), closes [#33](https://github.com/morgbn/nuxt-csurf/issues/33)
+* opt in to `import.meta.*` properties ([377ce75](https://github.com/morgbn/nuxt-csurf/commit/377ce75af64de762912e9bb2977dfc5e41ecfc44))
+
 ## [1.5.1](https://github.com/morgbn/nuxt-csurf/compare/v1.5.0...v1.5.1) (2024-03-20)
 
 
