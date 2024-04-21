@@ -40,7 +40,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Transpile runtime
     nuxt.options.build.transpile.push(resolve('runtime'))
 
-    addImports(['useCsrf', 'useCsrfFetch'].map(key => ({
+    addImports(['useCsrf', 'useCsrfFetch', 'useLazyCsrfFetch'].map(key => ({
       name: key,
       as: key,
       from: resolve('runtime/composables')
