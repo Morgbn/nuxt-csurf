@@ -44,7 +44,7 @@ const testPost = async (withCsrf, url = '/test') => {
   if (error.value) { msgColor.value = 'red' }
 }
 
-const testPut = async (withCsrf, url = '/test-put') => {
+const testPut = async (withCsrf, url = '/test') => {
   msg.value = null
   msgColor.value = 'green'
   const fetch = withCsrf ? useCsrfFetch : useFetch
