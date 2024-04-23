@@ -14,6 +14,9 @@
     <button @click="testPost(true, '/error')">
       POST /error (throw an error one time in two)
     </button>
+    <button @click="testPut()">
+      PUT /put-test (without csrf header)
+    </button>
     <br>
     <br>
     <pre
@@ -40,6 +43,16 @@ const testPost = async (withCsrf, url = '/test') => {
   msg.value = data.value || error.value
   if (error.value) { msgColor.value = 'red' }
 }
+
+const testPut = async (withCsrf, url = '/test-put') => {
+  msg.value = null
+  msgColor.value = 'green'
+  const fetch = withCsrf ? useCsrfFetch : useFetch
+  const { data, error } = await fetch('/api' + url, { method: 'PUT' })
+  msg.value = data.value || error.value
+  if (error.value) { msgColor.value = 'red' }
+}
+
 
 const { data: preFetchedData } = useCsrfFetch('/api/data', { params: { d: 'specific' } })
 // Need "addCsrfTokenToEventCtx" to be true in csurf config (in nuxt.config.js)
