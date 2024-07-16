@@ -2,8 +2,11 @@
 import { useFetch, type FetchResult, type UseFetchOptions, useNuxtApp } from '#app'
 import type { Ref } from 'vue'
 import type { FetchError } from 'ofetch'
-import type { NitroFetchRequest, AvailableRouterMethod } from 'nitropack'
+import type { NitroFetchRequest, AvailableRouterMethod as _AvailableRouterMethod } from 'nitropack'
 import type { AsyncData, KeysOf, PickFrom } from 'nuxt/dist/app/composables/asyncData'
+
+// support uppercase methods, detail: https://github.com/nuxt/nuxt/issues/22313
+type AvailableRouterMethod<R extends NitroFetchRequest> = _AvailableRouterMethod<R> | Uppercase<_AvailableRouterMethod<R>>
 
 export function useCsrfFetch<
   ResT = void,
@@ -13,11 +16,11 @@ export function useCsrfFetch<
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = null,
+  DefaultT = undefined,
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
   opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | null>
+): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
 export function useCsrfFetch<
   ResT = void,
   ErrorT = FetchError,
@@ -30,7 +33,7 @@ export function useCsrfFetch<
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
   opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | null>
+): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
 export function useCsrfFetch<
   ResT = void,
   ErrorT = FetchError,
@@ -39,7 +42,7 @@ export function useCsrfFetch<
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = null,
+  DefaultT = DataT,
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
   arg1?: string | UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>,
@@ -65,7 +68,7 @@ export function useLazyCsrfFetch<
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = null,
+  DefaultT = undefined,
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
   opts?: Omit<UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>, 'lazy'>
@@ -81,8 +84,8 @@ export function useLazyCsrfFetch<
   DefaultT = DataT,
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: Omit<UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>, 'lazy'>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | null>
+  opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
+): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
 export function useLazyCsrfFetch<
   ResT = void,
   ErrorT = FetchError,
@@ -91,7 +94,7 @@ export function useLazyCsrfFetch<
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = null,
+  DefaultT = undefined,
 > (
   request: Ref<ReqT> | ReqT | (() => ReqT),
   arg1?: string | Omit<UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>, 'lazy'>,
