@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/morgbn/nuxt-csurf/compare/v1.6.0...v1.6.1) (2024-07-17)
+
+
+### Bug Fixes
+
+* :bug: defaults merge array ([0f756fc](https://github.com/morgbn/nuxt-csurf/commit/0f756fcdf15f4df3a60761ab5e67d1c110591474)), closes [#37](https://github.com/morgbn/nuxt-csurf/issues/37)
+
 # [1.6.0](https://github.com/morgbn/nuxt-csurf/compare/v1.5.2...v1.6.0) (2024-07-17)
 
 
