@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/morgbn/nuxt-csurf/compare/v1.5.2...v1.6.0) (2024-07-17)
+
+
+### Bug Fixes
+
+* :bug: support uppercase methods ([1c3073b](https://github.com/morgbn/nuxt-csurf/commit/1c3073b5242214a0acd759eb0f2fe8d7cef82333)), closes [#39](https://github.com/morgbn/nuxt-csurf/issues/39)
+
+
+### Features
+
+* :sparkles: option to configure header name ([2e093cc](https://github.com/morgbn/nuxt-csurf/commit/2e093cc755b45e026c90cda7b96c9cf8a3d29388)), closes [#38](https://github.com/morgbn/nuxt-csurf/issues/38)
+
 ## [1.5.2](https://github.com/morgbn/nuxt-csurf/compare/v1.5.1...v1.5.2) (2024-04-21)
 
 
