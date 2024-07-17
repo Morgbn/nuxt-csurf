@@ -4,12 +4,7 @@ import type { ModuleOptions } from './types'
 
 export * from './types'
 
-export default defineNuxtModule<ModuleOptions>({
-  meta: {
-    name: 'nuxt-csurf',
-    configKey: 'csurf'
-  },
-  defaults: {
+const defaultOptions: ModuleOptions = {
     https: process.env.NODE_ENV === 'production',
     cookieKey: '',
     cookie: {
@@ -19,9 +14,17 @@ export default defineNuxtModule<ModuleOptions>({
     },
     headerName: 'csrf-token',
     methodsToProtect: ['POST', 'PUT', 'PATCH']
+  }
+
+export default defineNuxtModule<ModuleOptions>({
+  meta: {
+    name: 'nuxt-csurf',
+    configKey: 'csurf'
   },
+  // defaults: …, // don't use defaults (to prevent arrays from being merged)
   setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
+    options = defuReplaceArray(options, defaultOptions)
 
     if (!options.cookieKey) {
       options.cookieKey = `${options.https ? '__Host-' : ''}csrf`
