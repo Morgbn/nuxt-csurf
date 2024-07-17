@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   if (!methodsToProtect.includes(method)) { return }
 
   const secret = getCookie(event, csrfConfig.cookieKey!) ?? ''
-  const token = getHeader(event, 'csrf-token') ?? ''
+  const token = getHeader(event, baseConfig.headerName!) ?? ''
   // verify the incoming csrf token
   const isValidToken = await csrf.verify(secret, token, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
   if (!isValidToken) {

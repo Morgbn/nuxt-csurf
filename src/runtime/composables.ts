@@ -1,5 +1,5 @@
 // Adapted from https://github.com/nuxt/nuxt/blob/7046930a677f4c987afaee5a0165841b0e0a517f/packages/nuxt/src/app/composables/fetch.ts
-import { useFetch, type FetchResult, type UseFetchOptions, useNuxtApp } from '#app'
+import { useFetch, type FetchResult, type UseFetchOptions, useNuxtApp , useRuntimeConfig } from '#app'
 import type { Ref } from 'vue'
 import type { FetchError } from 'ofetch'
 import type { NitroFetchRequest, AvailableRouterMethod as _AvailableRouterMethod } from 'nitropack'
@@ -49,9 +49,9 @@ export function useCsrfFetch<
   arg2?: string
 ) {
   const [opts = {}, autoKey] = typeof arg1 === 'string' ? [{}, arg1] : [arg1, arg2]
-  const { csrf } = useCsrf()
+  const { csrf, headerName } = useCsrf()
   opts.headers = (opts.headers || {}) as Record<string, string>
-  opts.headers['csrf-token'] = csrf // add csrf token to req headers
+  opts.headers[headerName] = csrf // add csrf token to req headers
   return useFetch<ResT, ErrorT, ReqT, Method, _ResT, DataT, PickKeys, DefaultT>(
     request,
     opts,
@@ -111,9 +111,10 @@ export function useLazyCsrfFetch<
 }
 
 export function useCsrf() {
+  const headerName = useRuntimeConfig().public.csurf.headerName ?? ''
   if (import.meta.server) {
-    return { csrf: useNuxtApp().ssrContext?.event?.context?.csrfToken }
+    return { csrf: useNuxtApp().ssrContext?.event?.context?.csrfToken, headerName }
   }
   const metaTag = window.document.querySelector('meta[name="csrf-token"]')
-  return { csrf: metaTag?.getAttribute('content') }
+  return { csrf: metaTag?.getAttribute('content'), headerName }
 }

@@ -17,6 +17,7 @@ export default defineNuxtModule<ModuleOptions>({
       httpOnly: true,
       sameSite: 'strict'
     },
+    headerName: 'csrf-token',
     methodsToProtect: ['POST', 'PUT', 'PATCH']
   },
   setup (options, nuxt) {
@@ -31,6 +32,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.options.runtimeConfig.csurf = defuReplaceArray(nuxt.options.runtimeConfig.csurf, { ...options })
+    nuxt.options.runtimeConfig.public.csurf = { headerName: nuxt.options.runtimeConfig.csurf.headerName }
 
     if (options.enabled !== false) {
       addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
@@ -53,6 +55,9 @@ export default defineNuxtModule<ModuleOptions>({
 declare module 'nuxt/schema' {
   interface RuntimeConfig {
     csurf: ModuleOptions
+  }
+  interface PublicRuntimeConfig {
+    csurf: Pick<ModuleOptions, 'headerName'>
   }
 }
 

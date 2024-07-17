@@ -15,6 +15,7 @@ export default defineNuxtConfig({
   },
   csurf: {
     https: process.env.NODE_ENV === 'production',
-    methodsToProtect: ['POST']
+    methodsToProtect: ['POST'],
+    headerName: 'X-CSRF-TOKEN'
   }
 })

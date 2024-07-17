@@ -23,4 +23,5 @@ export interface ModuleOptions {
   encryptAlgorithm?: EncryptAlgorithm
   addCsrfTokenToEventCtx?: boolean // to run useCsrfFetch on server
   enabled?: boolean // disabled module server middleware/plugin when `enabled` is set to `false` (you will still have access to `useCsrf`/`useCsrfFetch` client composables)
+  headerName?: string
 }

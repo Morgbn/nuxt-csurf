@@ -15,11 +15,11 @@ type MappedType<R extends ResponseType, JsonType = any> = R extends keyof Respon
 type $CsrfFetch = <T = any, R extends ResponseType = "json">(request: FetchRequest, options?: FetchOptions<R>, fetch?: $Fetch) => Promise<MappedType<R, T>>
 
 export default defineNuxtPlugin(() => {
-  const { csrf } = useCsrf()
+  const { csrf, headerName } = useCsrf()
   const csrfFetch: $CsrfFetch = (request, options, fetch = $fetch) => {
     if (!options) { options = {} }
     options.headers = (options.headers || {}) as Record<string, string>
-    options.headers['csrf-token'] = csrf
+    options.headers[headerName] = csrf
     return fetch(request, options)
   }
   return {

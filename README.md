@@ -37,7 +37,8 @@ export default defineNuxtConfig({
     methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
     encryptSecret: /** a 32 bits secret */, // only for non serverless runtime, random bytes by default
     encryptAlgorithm: 'aes-256-cbc', // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
-    addCsrfTokenToEventCtx: true // default false, to run useCsrfFetch on server set it to true
+    addCsrfTokenToEventCtx: true, // default false, to run useCsrfFetch on server set it to true
+    headerName: 'csrf-token' // the header where the csrf token is stored
   } 
 })
 ```
