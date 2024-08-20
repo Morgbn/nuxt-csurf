@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
     <h1>Test CSRF <small>with useCsrfFetch</small></h1>
@@ -41,7 +42,7 @@ const testFetch = async (withCsrf, url = '/test', method = 'POST') => {
   const fetch = withCsrf ? useCsrfFetch : useFetch
   const { data, error } = await fetch('/api' + url, { method })
   msg.value = data.value || error.value
-  if (error.value) { msgColor.value = 'red' }
+  if (error.value) msgColor.value = 'red'
 }
 
 const { data: preFetchedData } = useCsrfFetch('/api/data', { params: { d: 'specific' } })

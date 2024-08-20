@@ -1,5 +1,5 @@
-import type { ModuleOptions } from '../../types'
 import { importEncryptSecret } from 'uncsrf'
+import type { ModuleOptions } from '../../types'
 
 let secretKey: Awaited<ReturnType<typeof importEncryptSecret>>
 export const useSecretKey = async (options: ModuleOptions) => secretKey

@@ -1,8 +1,9 @@
 import * as csrf from 'uncsrf'
 import { getCookie, setCookie } from 'h3'
 import type { NitroApp } from 'nitropack'
-import { useRuntimeConfig } from '#imports'
 import { useSecretKey } from '../helpers'
+import { useRuntimeConfig } from '#imports'
+
 type NitroAppPlugin = (nitro: NitroApp) => void
 
 const defineNitroPlugin = (def: NitroAppPlugin): NitroAppPlugin => def

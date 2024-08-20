@@ -5,16 +5,16 @@ import type { ModuleOptions } from './types'
 export * from './types'
 
 const defaultOptions: ModuleOptions = {
-    https: process.env.NODE_ENV === 'production',
-    cookieKey: '',
-    cookie: {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'strict'
-    },
-    headerName: 'csrf-token',
-    methodsToProtect: ['POST', 'PUT', 'PATCH']
-  }
+  https: process.env.NODE_ENV === 'production',
+  cookieKey: '',
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'strict'
+  },
+  headerName: 'csrf-token',
+  methodsToProtect: ['POST', 'PUT', 'PATCH']
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -22,7 +22,7 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'csurf'
   },
   // defaults: …, // don't use defaults (to prevent arrays from being merged)
-  setup (options, nuxt) {
+  setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     options = defuReplaceArray(options, defaultOptions)
 
@@ -66,6 +66,6 @@ declare module 'nuxt/schema' {
 
 declare module 'nitropack' {
   interface NitroRouteConfig {
-    csurf?: Partial<ModuleOptions> | false;
+    csurf?: Partial<ModuleOptions> | false
   }
 }

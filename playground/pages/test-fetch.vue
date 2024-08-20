@@ -36,6 +36,6 @@ const testPost = async (withCsrf) => {
       return null
     })
   msg.value = data || error
-  if (error) { msgColor.value = 'red' }
+  if (error) msgColor.value = 'red'
 }
 </script>

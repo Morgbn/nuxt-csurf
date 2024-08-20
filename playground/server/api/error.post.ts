@@ -5,5 +5,5 @@ export default defineEventHandler(() => {
   if (!(i++ % 2)) {
     throw createError({ status: 418 })
   }
-  return "I'm a coffee maker"
+  return 'I\'m a coffee maker'
 })
