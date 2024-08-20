@@ -24,7 +24,8 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 403,
       name: 'EBADCSRFTOKEN',
-      statusMessage: 'CSRF Token Mismatch'
+      statusMessage: 'CSRF Token Mismatch',
+      message: !secret ? 'CSRF Cookie not found' : (!token ? 'CSRF Token not found' : 'CSRF Token invalid'),
     })
   }
 })
