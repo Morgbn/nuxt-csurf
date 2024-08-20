@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.1...v1.6.2) (2024-08-20)
+
+
+### Bug Fixes
+
+* :art: message on error ([2e928b7](https://github.com/Morgbn/nuxt-csurf/commit/2e928b79fc4c51c15f71c4606e01616d0bf43b7e))
+
 ## [1.6.1](https://github.com/morgbn/nuxt-csurf/compare/v1.6.0...v1.6.1) (2024-07-17)
 
 
