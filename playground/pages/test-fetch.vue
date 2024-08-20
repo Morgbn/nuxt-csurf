@@ -5,6 +5,9 @@
     <button @click="testPost()">
       POST /test (without csrf header)
     </button>
+    <button @click="testPost(false, { [headerName]: 'bad-token' })">
+      POST /test (with bad csrf header)
+    </button>
     <button @click="testPost(true)">
       POST /test (with csrf header)
     </button>
@@ -19,18 +22,19 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useNuxtApp } from '#imports'
+import { useNuxtApp, useRuntimeConfig } from '#imports'
 
 const { $csrfFetch } = useNuxtApp()
+const headerName = useRuntimeConfig().public.csurf.headerName
 
 const msg = ref(null)
 const msgColor = ref('green')
-const testPost = async (withCsrf) => {
+const testPost = async (withCsrf, headers = { 'test-header': 'ok' }) => {
   msg.value = null
   msgColor.value = 'green'
   let error
   const fetch = withCsrf ? $csrfFetch : $fetch
-  const data = await fetch('/api/test', { method: 'POST', headers: { 'test-header': 'ok' } })
+  const data = await fetch('/api/test', { method: 'POST', headers })
     .catch(({ data }) => {
       error = data
       return null
