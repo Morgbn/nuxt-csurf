@@ -55,7 +55,7 @@ export default defineNuxtModule<ModuleOptions>({
   }
 })
 
-declare module 'nuxt/schema' {
+declare module '@nuxt/schema' {
   interface RuntimeConfig {
     csurf: ModuleOptions
   }
