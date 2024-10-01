@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.2...v1.6.3) (2024-10-01)
+
+
+### Bug Fixes
+
+* augment `@nuxt/schema` rather than `nuxt/schema` ([91b7164](https://github.com/Morgbn/nuxt-csurf/commit/91b716418c6f5c5cd6a25f907031948d92c55226))
+
 ## [1.6.2](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.1...v1.6.2) (2024-08-20)
 
 
