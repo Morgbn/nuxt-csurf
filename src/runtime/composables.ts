@@ -1,115 +1,39 @@
-// Adapted from https://github.com/nuxt/nuxt/blob/7046930a677f4c987afaee5a0165841b0e0a517f/packages/nuxt/src/app/composables/fetch.ts
-import type { Ref } from 'vue'
-import type { FetchError } from 'ofetch'
-import type { NitroFetchRequest, AvailableRouterMethod as _AvailableRouterMethod } from 'nitropack'
-import type { AsyncData, KeysOf, PickFrom } from 'nuxt/dist/app/composables/asyncData'
-import { useFetch, type FetchResult, type UseFetchOptions, useNuxtApp, useRuntimeConfig } from '#app'
+import { useFetch, useNuxtApp, useRuntimeConfig, type UseFetchOptions } from 'nuxt/app'
 
-// support uppercase methods, detail: https://github.com/nuxt/nuxt/issues/22313
-type AvailableRouterMethod<R extends NitroFetchRequest> = _AvailableRouterMethod<R> | Uppercase<_AvailableRouterMethod<R>>
-
-export function useCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = undefined
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
-export function useCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = DataT
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
-export function useCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = DataT
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  arg1?: string | UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>,
-  arg2?: string
+/**
+ * Fetch data from an API endpoint protected by a CSRF token. SSR-friendly composable.
+ * See {@link https://nuxt.com/docs/api/composables/use-fetch}
+ * @param url The URL to fetch
+ * @param options extends $fetch options and useAsyncData options
+ */
+export function useCsrfFetch<T>(
+  url: string | (() => string),
+  options?: UseFetchOptions<T>
 ) {
-  const [opts = {}, autoKey] = typeof arg1 === 'string' ? [{}, arg1] : [arg1, arg2]
-  const { csrf, headerName } = useCsrf()
-  opts.headers = (opts.headers || {}) as Record<string, string>
-  opts.headers[headerName] = csrf // add csrf token to req headers
-  return useFetch<ResT, ErrorT, ReqT, Method, _ResT, DataT, PickKeys, DefaultT>(
-    request,
-    opts,
-    // @ts-expect-error we pass an extra argument with the resolved auto-key to prevent another from being injected
-    autoKey
-  )
+  return useFetch(url, {
+    ...options,
+    $fetch: useNuxtApp().$csrfFetch
+  })
 }
 
-export function useLazyCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = undefined
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: Omit<UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>, 'lazy'>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | null>
-export function useLazyCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = DataT
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  opts?: UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>
-): AsyncData<PickFrom<DataT, PickKeys> | DefaultT, ErrorT | undefined>
-export function useLazyCsrfFetch<
-  ResT = void,
-  ErrorT = FetchError,
-  ReqT extends NitroFetchRequest = NitroFetchRequest,
-  Method extends AvailableRouterMethod<ReqT> = ResT extends void ? 'get' extends AvailableRouterMethod<ReqT> ? 'get' : AvailableRouterMethod<ReqT> : AvailableRouterMethod<ReqT>,
-  _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
-  DataT = _ResT,
-  PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT = undefined
->(
-  request: Ref<ReqT> | ReqT | (() => ReqT),
-  arg1?: string | Omit<UseFetchOptions<_ResT, DataT, PickKeys, DefaultT, ReqT, Method>, 'lazy'>,
-  arg2?: string
+export function useLazyCsrfFetch<T>(
+  url: string | (() => string),
+  options?: UseFetchOptions<T>
 ) {
-  const [opts, autoKey] = typeof arg1 === 'string' ? [{}, arg1] : [arg1, arg2]
-
-  return useCsrfFetch<ResT, ErrorT, ReqT, Method, _ResT, DataT, PickKeys, DefaultT>(request, {
-    ...opts,
-    lazy: true
-  },
-  // @ts-expect-error we pass an extra argument with the resolved auto-key to prevent another from being injected
-  autoKey)
+  return useFetch(url, {
+    ...options,
+    lazy: true,
+    $fetch: useNuxtApp().$csrfFetch
+  })
 }
 
+/**
+ * Retrieves the CSRF token from either the server or the client-side context.
+ * See {@link https://github.com/Morgbn/nuxt-csurf#usecsrf}
+ * @returns
+ * - `csrf`: The CSRF token, either retrieved from the server or from the meta tag in the client.
+ * - `headerName`: The name of the CSRF header, as configured in the public runtime configuration. Defaults to an empty string if not set.
+ */
 export function useCsrf() {
   const headerName = useRuntimeConfig().public.csurf.headerName ?? ''
   if (import.meta.server) {
