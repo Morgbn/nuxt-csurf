@@ -15,7 +15,7 @@ export default defineNitroPlugin((nitroApp) => {
 
   if (csrfConfig.addCsrfTokenToEventCtx) {
     nitroApp.hooks.hook('request', async (event) => {
-      const { csurf } = getRouteRules(event);
+      const { csurf } = getRouteRules(event)
       const needCookie = !(csurf === false || csurf?.enabled === false)
       let secret = getCookie(event, cookieKey)
       if (!secret) {
