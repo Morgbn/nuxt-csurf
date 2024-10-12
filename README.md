@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       sameSite: 'strict'
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
-    encryptSecret: /** a 32 bits secret */, // only for non serverless runtime, random bytes by default
+    encryptSecret: /** a 32 bits secret */, // for stateless server (like serverless runtime), random bytes by default
     encryptAlgorithm: 'aes-256-cbc', // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
     addCsrfTokenToEventCtx: true, // default false, to run useCsrfFetch on server set it to true
     headerName: 'csrf-token' // the header where the csrf token is stored
@@ -81,6 +81,12 @@ Use this composable if you need to access to the CSRF token value.
 ```javascript
 const { csrf } = useCsrf()
 console.log(csrf) // something like: mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4
+```
+
+### Try production on localhost (`yarn preview`):
+```.env
+NITRO_CSURF_HTTPS=false
+NITRO_CSURF_COOKIE_KEY=csrf
 ```
 
 ## Credits
