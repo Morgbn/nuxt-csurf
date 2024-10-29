@@ -5,13 +5,13 @@ export default defineNuxtConfig({
   modules: [
     module
   ],
-  nitro: {
-    prerender: { routes: ['/'] }
-  },
   routeRules: {
     '/api/nocsrf': {
       csurf: false
     }
+  },
+  nitro: {
+    prerender: { routes: ['/'] }
   },
   csurf: {
     https: process.env.NODE_ENV === 'production',
