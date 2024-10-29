@@ -1,3 +1,4 @@
+import { randomEncryptSecret } from 'uncsrf'
 import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
 import { defuReplaceArray } from './runtime/utils'
 import type { ModuleOptions } from './types'
@@ -32,6 +33,10 @@ export default defineNuxtModule<ModuleOptions>({
     options.cookie = options.cookie || {}
     if (options.cookie.secure === undefined) {
       options.cookie.secure = !!options.https
+    }
+
+    if (!options.encryptSecret) {
+      options.encryptSecret = randomEncryptSecret()
     }
 
     nuxt.options.runtimeConfig.csurf = defuReplaceArray(nuxt.options.runtimeConfig.csurf, { ...options })
