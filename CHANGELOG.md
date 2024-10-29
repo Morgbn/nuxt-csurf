@@ -1,3 +1,12 @@
+## [1.6.4](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.3...v1.6.4) (2024-10-29)
+
+
+### Bug Fixes
+
+* :art: better custom useFetch ([60115ef](https://github.com/Morgbn/nuxt-csurf/commit/60115eff1c59ac2a2b3a1b63a73a96bc19a263c0)), closes [#49](https://github.com/Morgbn/nuxt-csurf/issues/49)
+* :art: store `encryptSecret` in runtimeConfig ([9c901c5](https://github.com/Morgbn/nuxt-csurf/commit/9c901c5017749d71b7d561778d56620f082a06bc)), closes [#41](https://github.com/Morgbn/nuxt-csurf/issues/41)
+* :label: `useCsrfFetch` type ([219b729](https://github.com/Morgbn/nuxt-csurf/commit/219b7293c8312fdb076443d8b71227e716ca97e8))
+
 ## [1.6.3](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.2...v1.6.3) (2024-10-01)
 
 
