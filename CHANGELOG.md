@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.4...v1.6.5) (2024-10-29)
+
+
+### Bug Fixes
+
+* :bug: use Fetch API Headers ([5d8cbcd](https://github.com/Morgbn/nuxt-csurf/commit/5d8cbcd86b5635103e386b9b445060b32d5ac8cf))
+
 ## [1.6.4](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.3...v1.6.4) (2024-10-29)
 
 
