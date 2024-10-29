@@ -6,8 +6,8 @@ export default defineNuxtPlugin(() => {
   const csrfFetch = $fetch.create({
     onRequest({ options }) {
       const { csrf, headerName } = useCsrf()
-      options.headers = (options.headers || {}) as Record<string, string>
-      options.headers[headerName] = csrf
+      options.headers = new Headers(options.headers || {})
+      options.headers.append(headerName, csrf)
     }
   })
   return {
