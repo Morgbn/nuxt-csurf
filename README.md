@@ -12,7 +12,8 @@ Create a middleware for CSRF token creation and validation.
 ✅ Supports Node.js server & serverless environments \
 ✅ Supports both universal and client-side rendering (`ssr: true|false`) \
 ✅ Per-route configuration \
-✅ TypeScript
+✅ TypeScript \
+❌ Don't support static hosting and [nitro prerender](https://nitro.unjs.io/config#prerender) due to certain limitations [*](#limitations)
 
 ## Installation
 
@@ -88,6 +89,9 @@ console.log(csrf) // something like: mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQV
 NITRO_CSURF_HTTPS=false
 NITRO_CSURF_COOKIE_KEY=csrf
 ```
+
+## Limitations
+The CSRF Token value is stored in the DOM as described [in Owasp's CSRF cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#storing-the-csrf-token-value-in-the-dom). So the DOM has to be generated for each new page request, which is not the case with a static site (or prerendered routes). See error #42
 
 ## Credits
 
