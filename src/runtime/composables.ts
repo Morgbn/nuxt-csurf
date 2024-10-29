@@ -1,4 +1,7 @@
-import { useFetch, useNuxtApp, useRuntimeConfig, type UseFetchOptions } from 'nuxt/app'
+import { useFetch, type useLazyFetch, useNuxtApp, useRuntimeConfig } from 'nuxt/app'
+
+type UseCsrfFetch = typeof useFetch
+type UseLazyCsrfFetch = typeof useLazyFetch
 
 /**
  * Fetch data from an API endpoint protected by a CSRF token. SSR-friendly composable.
@@ -6,20 +9,14 @@ import { useFetch, useNuxtApp, useRuntimeConfig, type UseFetchOptions } from 'nu
  * @param url The URL to fetch
  * @param options extends $fetch options and useAsyncData options
  */
-export function useCsrfFetch<T>(
-  url: string | (() => string),
-  options?: UseFetchOptions<T>
-) {
+export const useCsrfFetch: UseCsrfFetch = (url, options) => {
   return useFetch(url, {
     ...options,
     $fetch: useNuxtApp().$csrfFetch
   })
 }
 
-export function useLazyCsrfFetch<T>(
-  url: string | (() => string),
-  options?: UseFetchOptions<T>
-) {
+export const useLazyCsrfFetch: UseLazyCsrfFetch = (url, options) => {
   return useFetch(url, {
     ...options,
     lazy: true,
