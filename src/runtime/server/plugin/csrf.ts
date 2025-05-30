@@ -3,6 +3,7 @@ import { getCookie, setCookie } from 'h3'
 import type { NitroApp } from 'nitropack'
 import { useSecretKey } from '../helpers'
 import { useRuntimeConfig, getRouteRules } from '#imports'
+import { defuReplaceArray } from '../../utils'
 
 type NitroAppPlugin = (nitro: NitroApp) => void
 
@@ -21,7 +22,8 @@ export default defineNitroPlugin((nitroApp) => {
       if (!secret) {
         secret = csrf.randomSecret()
         if (needCookie) {
-          setCookie(event, cookieKey, secret, csrfConfig.cookie)
+          const mergedConfig = defuReplaceArray(csurf, csrfConfig)
+          setCookie(event, cookieKey, secret, mergedConfig.cookie)
         }
       }
       event.context.csrfToken = await csrf.create(secret, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
