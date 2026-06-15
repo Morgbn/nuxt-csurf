@@ -1,8 +1,10 @@
 import * as csrf from 'uncsrf'
-import { defineEventHandler, getCookie, getHeader, createError } from 'h3'
 import { useSecretKey } from '../helpers'
 import { defuReplaceArray } from '../../utils'
-import { useRuntimeConfig, getRouteRules } from '#imports'
+// Import h3 utilities from `#imports` (Nitro auto-imports) rather than `h3`,
+// so they resolve to the same h3 instance Nitro uses to build the event.
+// This keeps the module compatible with both h3 v1 and v2.
+import { defineEventHandler, getCookie, getHeader, createError, useRuntimeConfig, getRouteRules } from '#imports'
 
 const baseConfig = useRuntimeConfig().csurf
 
@@ -11,7 +13,7 @@ export default defineEventHandler(async (event) => {
   if (csurf === false || csurf?.enabled === false) return // csrf protection disabled for this route
 
   const csrfConfig = defuReplaceArray(csurf, baseConfig)
-  const method = event.node.req.method ?? ''
+  const method = event.method ?? ''
   const methodsToProtect = csrfConfig.methodsToProtect ?? []
   if (!methodsToProtect.includes(method)) return
 

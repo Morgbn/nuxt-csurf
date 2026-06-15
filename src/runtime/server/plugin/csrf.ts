@@ -1,8 +1,10 @@
 import * as csrf from 'uncsrf'
-import { getCookie, setCookie } from 'h3'
 import type { NitroApp } from 'nitropack'
 import { useSecretKey } from '../helpers'
-import { useRuntimeConfig, getRouteRules } from '#imports'
+// Import h3 utilities from `#imports` (Nitro auto-imports) rather than `h3`,
+// so they resolve to the same h3 instance Nitro uses to build the event.
+// This keeps the module compatible with both h3 v1 and v2.
+import { getCookie, setCookie, useRuntimeConfig, getRouteRules } from '#imports'
 
 type NitroAppPlugin = (nitro: NitroApp) => void
 
