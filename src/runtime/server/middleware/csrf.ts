@@ -1,24 +1,17 @@
 import * as csrf from 'uncsrf'
-import { useSecretKey } from '../helpers'
-import { defuReplaceArray } from '../../utils'
-// Import h3 utilities from `#imports` (Nitro auto-imports) rather than `h3`,
-// so they resolve to the same h3 instance Nitro uses to build the event.
-// This keeps the module compatible with both h3 v1 and v2.
-import { defineEventHandler, getCookie, getHeader, createError, useRuntimeConfig, getRouteRules } from '#imports'
-
-const baseConfig = useRuntimeConfig().csurf
+import { useSecretKey, useMergedRuntimeRouteRulesConfig } from '../helpers'
+import { defineEventHandler, getCookie, getHeader, createError } from '#imports'
 
 export default defineEventHandler(async (event) => {
-  const { csurf } = getRouteRules(event)
-  if (csurf === false || csurf?.enabled === false) return // csrf protection disabled for this route
+  const csrfConfig = useMergedRuntimeRouteRulesConfig(event)
+  if (csrfConfig.disabled) return // csrf protection disabled for this route
 
-  const csrfConfig = defuReplaceArray(csurf, baseConfig)
   const method = event.method ?? ''
   const methodsToProtect = csrfConfig.methodsToProtect ?? []
   if (!methodsToProtect.includes(method)) return
 
-  const secret = getCookie(event, csrfConfig.cookieKey!) ?? ''
-  const token = getHeader(event, baseConfig.headerName!) ?? ''
+  const secret = getCookie(event, csrfConfig.cookieKey) ?? ''
+  const token = getHeader(event, csrfConfig.headerName) ?? ''
   // verify the incoming csrf token
   const isValidToken = await csrf.verify(secret, token, await useSecretKey(csrfConfig), csrfConfig.encryptAlgorithm)
   if (!isValidToken) {
