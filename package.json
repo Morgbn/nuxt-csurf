@@ -1,6 +1,6 @@
 {
   "name": "nuxt-csurf",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Nuxt Cross-Site Request Forgery (CSRF) Prevention",
   "keywords": [
     "nuxt",
@@ -46,9 +46,16 @@
     "@nuxt/eslint-config": "^1.16.0",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.4.8",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.9",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "nuxt": "^4.4.8",
+    "semantic-release": "^25.0.5",
     "typescript": "^6.0.3"
   },
   "repository": {

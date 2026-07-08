@@ -1,3 +1,10 @@
+## [1.6.6](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.5...v1.6.6) (2026-07-08)
+
+
+### Bug Fixes
+
+* :bug: support h3 v2 ([47cf2ef](https://github.com/Morgbn/nuxt-csurf/commit/47cf2ef085d98bd301c9b496ca78625e3e57d492))
+
 ## [1.6.5](https://github.com/Morgbn/nuxt-csurf/compare/v1.6.4...v1.6.5) (2024-10-29)
 
 
