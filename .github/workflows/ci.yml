@@ -10,29 +10,32 @@ on:
       - main
       - beta
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   ci:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - run: corepack enable
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: yarn
-      - run: yarn install
-      - run: yarn dev:prepare
-      - run: yarn lint
-      - run: yarn build
+          node-version: 24
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm dev:prepare
+      - run: pnpm lint
+      - run: pnpm build
 
       - name: Publish
         if: |
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]')
-        run:
-          yarn dlx -p semantic-release -p @semantic-release/commit-analyzer -p @semantic-release/release-notes-generator -p @semantic-release/changelog -p @semantic-release/npm -p @semantic-release/git -p @semantic-release/github semantic-release
+        run: |
+          pnpm add -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github &&
+          pnpm exec semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

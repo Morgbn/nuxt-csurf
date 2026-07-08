@@ -84,7 +84,7 @@ const { csrf } = useCsrf()
 console.log(csrf) // something like: mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4
 ```
 
-### Try production on localhost (`yarn preview`):
+### Try production on localhost (`pnpm preview`):
 ```.env
 NITRO_CSURF_HTTPS=false
 NITRO_CSURF_COOKIE_KEY=csrf
