@@ -1,4 +1,3 @@
-import { $fetch, type $Fetch } from 'ofetch'
 import { useCsrf } from './composables'
 import { defineNuxtPlugin } from '#app'
 
@@ -17,12 +16,12 @@ export default defineNuxtPlugin(() => {
 
 declare module '#app' {
   interface NuxtApp {
-    $csrfFetch: $Fetch
+    $csrfFetch: typeof $fetch
   }
 }
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $csrfFetch: $Fetch
+    $csrfFetch: typeof $fetch
   }
 }
