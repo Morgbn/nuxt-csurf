@@ -35,11 +35,13 @@ export default defineNuxtModule<ModuleOptions>({
       options.cookie.secure = !!options.https
     }
 
-    if (!options.encryptSecret) {
-      options.encryptSecret = randomEncryptSecret()
-    }
-
-    nuxt.options.runtimeConfig.csurf = defuReplaceArray(nuxt.options.runtimeConfig.csurf, { ...options })
+    // an empty `encryptSecret` keeps the key overridable through `NUXT_CSURF_ENCRYPT_SECRET` at runtime,
+    // while the generated one is used only when neither that nor Nuxt's `appSecret` is set
+    nuxt.options.runtimeConfig.csurf = defuReplaceArray(nuxt.options.runtimeConfig.csurf, {
+      ...options,
+      encryptSecret: options.encryptSecret || '',
+      generatedEncryptSecret: randomEncryptSecret()
+    })
     nuxt.options.runtimeConfig.public.csurf = { headerName: nuxt.options.runtimeConfig.csurf.headerName }
 
     if (options.enabled !== false) {
@@ -62,7 +64,7 @@ export default defineNuxtModule<ModuleOptions>({
 
 declare module '@nuxt/schema' {
   interface RuntimeConfig {
-    csurf: ModuleOptions
+    csurf: ModuleOptions & { generatedEncryptSecret?: string }
   }
   interface PublicRuntimeConfig {
     csurf: Pick<ModuleOptions, 'headerName'>
