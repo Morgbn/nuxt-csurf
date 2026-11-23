@@ -36,7 +36,7 @@ export default defineNuxtConfig({
       sameSite: 'strict'
     },
     methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
-    encryptSecret: /** a 32 bits secret */, // for stateless server (like serverless runtime), random bytes by default
+    encryptSecret: /** a 32 bits secret */, // for stateless server (like serverless runtime), derived from Nuxt's `appSecret` (`NUXT_APP_SECRET`) if set, else random bytes generated at build time
     encryptAlgorithm: 'aes-256-cbc', // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
     addCsrfTokenToEventCtx: true, // default false, to run useCsrfFetch on server set it to true
     headerName: 'csrf-token' // the header where the csrf token is stored
