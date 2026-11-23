@@ -34,8 +34,6 @@ jobs:
         if: |
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]')
-        run: |
-          pnpm add -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github &&
-          pnpm exec semantic-release
+        run: pnpm exec semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
