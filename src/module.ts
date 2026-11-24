@@ -1,5 +1,5 @@
 import { randomEncryptSecret } from 'uncsrf'
-import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addServerPlugin, addImports, addPlugin, getNitroVersion } from '@nuxt/kit'
 import { defuReplaceArray } from './runtime/utils'
 import type { ModuleOptions } from './types'
 
@@ -43,7 +43,12 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.public.csurf = { headerName: nuxt.options.runtimeConfig.csurf.headerName }
 
     if (options.enabled !== false) {
-      addServerHandler({ handler: resolve('runtime/server/middleware/csrf'), middleware: true })
+      addServerHandler({
+        handler: resolve('runtime/server/middleware/csrf'),
+        middleware: true,
+        // Nitro v3 requires a route, while Nitro v2 mounts middleware on its route as a literal path prefix
+        route: getNitroVersion() === 2 ? undefined : '/**'
+      })
       addServerPlugin(resolve('runtime/server/plugin/csrf'))
     }
 
