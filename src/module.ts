@@ -43,7 +43,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.public.csurf = { headerName: nuxt.options.runtimeConfig.csurf.headerName }
 
     if (options.enabled !== false) {
-      addServerHandler({ handler: resolve('runtime/server/middleware/csrf') })
+      addServerHandler({ handler: resolve('runtime/server/middleware/csrf'), middleware: true })
       addServerPlugin(resolve('runtime/server/plugin/csrf'))
     }
 
